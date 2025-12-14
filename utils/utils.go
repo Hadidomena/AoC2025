@@ -12,3 +12,10 @@ func LoadFileAsLines(filename string) ([]string, error) {
 	}
 	return strings.Split(string(fileContent), "\n"), nil
 }
+
+func abs(x int) int {
+	if x < 0 {
+		return -x
+	}
+	return x
+}
