@@ -18,3 +18,17 @@ func TestExampleInput(t *testing.T) {
 		t.Fatalf("Expected 3, got %d", result)
 	}
 }
+
+func TestSecondPart(t *testing.T) {
+	lines, err := utils.LoadFileAsLines("example.txt")
+
+	if err != nil {
+		t.Fatalf("Error loading file: %s", err)
+	}
+
+	result := SolveSecondPart(lines)
+
+	if result != 6 {
+		t.Fatalf("Expected 6, got %d", result)
+	}
+}
