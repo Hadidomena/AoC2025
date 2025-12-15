@@ -27,8 +27,9 @@ func solveDay2() {
 		panic(err)
 	}
 	result1 := day2.SolveFirstPart(lines[0])
+	result2 := day2.SolveSecondPart(lines[0])
 
-	fmt.Println("Result for first part is", result1)
+	fmt.Printf("Result for first part is %d and result for second part is %d", result1, result2)
 }
 
 func main() {
