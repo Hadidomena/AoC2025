@@ -13,8 +13,8 @@ func TestExampleInputFirstPart(t *testing.T) {
 	}
 
 	result := SolveFirstPart(lines)
-	if result != 0 {
-		t.Fatalf("Example Input gave incorrect result it is %d, should be 0", result)
+	if result != 357 {
+		t.Fatalf("Example Input gave incorrect result it is %d, should be 357", result)
 	}
 }
 
