@@ -3,6 +3,7 @@ package main
 import (
 	"AoC2025/day1"
 	"AoC2025/day2"
+	"AoC2025/day3"
 	"AoC2025/utils"
 	"fmt"
 	"os"
@@ -32,6 +33,18 @@ func solveDay2() {
 	fmt.Printf("Result for first part is %d and result for second part is %d", result1, result2)
 }
 
+func solveDay3() {
+	lines, err := utils.LoadFileAsLines("day3\\input.txt")
+
+	if err != nil {
+		panic(err)
+	}
+	result1 := day3.SolveFirstPart(lines)
+	result2 := day3.SolveSecondPart(lines)
+
+	fmt.Printf("Result for first part is %d and result for second part is %d", result1, result2)
+}
+
 func main() {
 	args := os.Args[1:]
 	if len(args) == 0 {
@@ -45,6 +58,8 @@ func main() {
 			solveDay1()
 		case "day2":
 			solveDay2()
+		case "day3":
+			solveDay3()
 		}
 	}
 }
