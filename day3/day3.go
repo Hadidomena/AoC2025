@@ -25,6 +25,35 @@ func SolveFirstPart(lines []string) int {
 	return result
 }
 
-func SolveSecondPart(lines []string) int {
-	return 0
+func SolveSecondPart(lines []string) int64 {
+	result := int64(0)
+	for _, line := range lines {
+		selected := make([]int, 0, 12)
+		startIdx := 0
+
+		for len(selected) < 12 {
+			remaining := 12 - len(selected)
+			searchEnd := len(line) - remaining
+			maxVal := -1
+			maxIdx := -1
+			for i := startIdx; i <= searchEnd; i++ {
+				charVal := int(line[i] - '0')
+				if charVal > maxVal {
+					maxVal = charVal
+					maxIdx = i
+				}
+			}
+
+			if maxIdx != -1 {
+				selected = append(selected, maxVal)
+				startIdx = maxIdx + 1
+			}
+		}
+		lineVal := int64(0)
+		for _, v := range selected {
+			lineVal = lineVal*10 + int64(v)
+		}
+		result += lineVal
+	}
+	return result
 }

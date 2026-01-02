@@ -19,4 +19,14 @@ func TestExampleInputFirstPart(t *testing.T) {
 }
 
 func TestExampleInputSecondPart(t *testing.T) {
+	lines, err := utils.LoadFileAsLines("example.txt")
+
+	if err != nil {
+		t.Fatalf("Error loading file: %s", err)
+	}
+
+	result := SolveSecondPart(lines)
+	if result != 3121910778619 {
+		t.Fatalf("Example Input gave incorrect result it is %d, should be 3121910778619", result)
+	}
 }
