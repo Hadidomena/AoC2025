@@ -5,7 +5,7 @@ import (
 	"strconv"
 )
 
-func Solve(lines []string) int {
+func SolveFirstPart(lines []string) int {
 	position, result := 50, 0
 	for _, line := range lines {
 		dir := line[0]

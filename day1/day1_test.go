@@ -13,7 +13,7 @@ func TestExampleInput(t *testing.T) {
 		t.Fatalf("Error loading file: %s", err)
 	}
 
-	result := Solve(lines)
+	result := SolveFirstPart(lines)
 
 	if result != 3 {
 		t.Fatalf("Expected 3, got %d", result)

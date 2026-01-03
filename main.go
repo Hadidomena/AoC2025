@@ -10,51 +10,58 @@ import (
 	"os"
 )
 
+type daySolver struct {
+	solveFirstPart  func([]string) int64
+	solveSecondPart func([]string) int64
+}
+
+var solvers = map[string]daySolver{
+	"day1": {
+		solveFirstPart: func(lines []string) int64 {
+			return int64(day1.SolveFirstPart(lines))
+		},
+		solveSecondPart: func(lines []string) int64 {
+			return int64(day1.SolveSecondPart(lines))
+		},
+	},
+	"day2": {
+		solveFirstPart: func(lines []string) int64 {
+			return day2.SolveFirstPart(lines[0])
+		},
+		solveSecondPart: func(lines []string) int64 {
+			return day2.SolveSecondPart(lines[0])
+		},
+	},
+	"day3": {
+		solveFirstPart: func(lines []string) int64 {
+			return int64(day3.SolveFirstPart(lines))
+		},
+		solveSecondPart: day3.SolveSecondPart,
+	},
+	"day4": {
+		solveFirstPart: func(lines []string) int64 {
+			return int64(day4.SolveFirstPart(lines))
+		},
+		solveSecondPart: day4.SolveSecondPart,
+	},
+}
+
 func solveDay(day string) {
 	lines, err := utils.LoadFileAsLines(day + "\\input.txt")
-
-	if err != nil {
-		panic(err)
-	}
-	result1, result2 := day4.Solve(lines), day4.SolveSecondPart(lines)
-
-	fmt.Println("Result for first part is", result1, "and result for second part is", result2)
-}
-
-func solveDay1() {
-	lines, err := utils.LoadFileAsLines("day1\\input.txt")
-
 	if err != nil {
 		panic(err)
 	}
 
-	result1, result2 := day1.Solve(lines), day1.SolveSecondPart(lines)
-
-	fmt.Println("Result for first part is", result1, "and result for second part is", result2)
-}
-
-func solveDay2() {
-	lines, err := utils.LoadFileAsLines("day2\\input.txt")
-
-	if err != nil {
-		panic(err)
+	solver, ok := solvers[day]
+	if !ok {
+		fmt.Printf("Solver for day %s not found\n", day)
+		return
 	}
-	result1 := day2.SolveFirstPart(lines[0])
-	result2 := day2.SolveSecondPart(lines[0])
 
-	fmt.Printf("Result for first part is %d and result for second part is %d", result1, result2)
-}
+	result1 := solver.solveFirstPart(lines)
+	result2 := solver.solveSecondPart(lines)
 
-func solveDay3() {
-	lines, err := utils.LoadFileAsLines("day3\\input.txt")
-
-	if err != nil {
-		panic(err)
-	}
-	result1 := day3.SolveFirstPart(lines)
-	result2 := day3.SolveSecondPart(lines)
-
-	fmt.Printf("Result for first part is %d and result for second part is %d", result1, result2)
+	fmt.Printf("Result for first part is %d and result for second part is %d\n", result1, result2)
 }
 
 func main() {
@@ -64,16 +71,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	for x := 0; x < len(args); x++ {
-		switch args[x] {
-		case "day1":
-			solveDay1()
-		case "day2":
-			solveDay2()
-		case "day3":
-			solveDay3()
-		case "day4":
-			solveDay(args[x])
-		}
+	for _, day := range args {
+		solveDay(day)
 	}
 }
