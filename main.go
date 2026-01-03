@@ -72,6 +72,10 @@ func main() {
 	}
 
 	for _, day := range args {
-		solveDay(day)
+		if utils.IsIn(day, solvers) {
+			solveDay(day)
+		} else {
+			fmt.Printf("Solver for day %s not found\n", day)
+		}
 	}
 }
