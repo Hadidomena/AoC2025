@@ -5,6 +5,7 @@ import (
 	"AoC2025/day2"
 	"AoC2025/day3"
 	"AoC2025/day4"
+	"AoC2025/day5"
 	"AoC2025/utils"
 	"fmt"
 	"os"
@@ -43,6 +44,12 @@ var solvers = map[string]daySolver{
 			return int64(day4.SolveFirstPart(lines))
 		},
 		solveSecondPart: day4.SolveSecondPart,
+	},
+	"day5": {
+		solveFirstPart: func(lines []string) int64 {
+			return int64(day5.SolveFirstPart(lines))
+		},
+		solveSecondPart: day5.SolveSecondPart,
 	},
 }
 
