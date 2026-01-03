@@ -4,10 +4,22 @@ import (
 	"AoC2025/day1"
 	"AoC2025/day2"
 	"AoC2025/day3"
+	"AoC2025/day4"
 	"AoC2025/utils"
 	"fmt"
 	"os"
 )
+
+func solveDay(day string) {
+	lines, err := utils.LoadFileAsLines(day + "\\input.txt")
+
+	if err != nil {
+		panic(err)
+	}
+	result1, result2 := day4.Solve(lines), day4.SolveSecondPart(lines)
+
+	fmt.Println("Result for first part is", result1, "and result for second part is", result2)
+}
 
 func solveDay1() {
 	lines, err := utils.LoadFileAsLines("day1\\input.txt")
@@ -60,6 +72,8 @@ func main() {
 			solveDay2()
 		case "day3":
 			solveDay3()
+		case "day4":
+			solveDay(args[x])
 		}
 	}
 }
