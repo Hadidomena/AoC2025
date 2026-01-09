@@ -6,14 +6,17 @@ import (
 )
 
 func TestSolveFirstPart(t *testing.T) {
-	lines, err := utils.LoadFileAsLines("example.txt")
-	if err != nil {
-		t.Fatalf("Failed to load example file: %v", err)
-	}
-	expected := int64(4277556)
-	result := SolveFirstPart(lines)
-	if result != expected {
-		t.Errorf("SolveFirstPart() = %v; want %v", result, expected)
+	testFiles, testResults := []string{"example.txt", "example_with_irregular_spaces.txt"}, []int64{4277556, 4277556}
+	for i, file := range testFiles {
+		lines, err := utils.LoadFileAsLines(file)
+		if err != nil {
+			t.Fatalf("Failed to load example file: %v", err)
+		}
+		expected := testResults[i]
+		result := SolveFirstPart(lines)
+		if result != expected {
+			t.Errorf("SolveFirstPart() = %v; want %v", result, expected)
+		}
 	}
 }
 
