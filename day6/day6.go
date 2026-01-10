@@ -1,13 +1,12 @@
 package day6
 
 import (
-	"fmt"
+	"AoC2025/utils"
 	"strconv"
 	"strings"
 )
 
-func SolveFirstPart(lines []string) int64 {
-	result := int64(0)
+func splitIntoColumns(lines []string) [][]string {
 	splitLines := [][]string{}
 	for _, line := range lines {
 		line = strings.TrimSpace(line)
@@ -20,6 +19,30 @@ func SolveFirstPart(lines []string) int64 {
 		}
 		splitLines = append(splitLines, filtered)
 	}
+	return splitLines
+}
+
+func addOrMultiply(isAdd, isMul bool, values []int64) int64 {
+	if isAdd {
+		sum := int64(0)
+		for _, val := range values {
+			sum += val
+		}
+		return sum
+	}
+	if isMul {
+		product := int64(1)
+		for _, val := range values {
+			product *= val
+		}
+		return product
+	}
+	return 0
+}
+
+func SolveFirstPart(lines []string) int64 {
+	result := int64(0)
+	splitLines := splitIntoColumns(lines)
 	numOfLines := len(splitLines)
 	lenOfLines := len(splitLines[0])
 	for x := range lenOfLines {
@@ -37,13 +60,74 @@ func SolveFirstPart(lines []string) int64 {
 				lineVal += a
 			}
 		}
-		fmt.Println("Value for column ", x, " is ", lineVal)
 		result += lineVal
 	}
-	fmt.Println(splitLines)
 	return result
 }
 
 func SolveSecondPart(lines []string) int64 {
-	return 0
+	result := int64(0)
+	numOfLines := len(lines)
+	lenOfLines := len(lines[0])
+	isMul, isAdd := false, false
+	values, howManySpaces := []int64{}, 0
+	for x := lenOfLines - 1; x >= 0; x-- {
+		colVal := []rune{}
+		for y := numOfLines - 1; y >= 0; y-- {
+			switch lines[y][x] {
+			case '*':
+				isMul = true
+				howManySpaces = 0
+			case '+':
+				isAdd = true
+				howManySpaces = 0
+			case ' ':
+				howManySpaces++
+			default:
+				colVal = append(colVal, rune(lines[y][x]))
+				howManySpaces = 0
+			}
+		}
+		if howManySpaces >= numOfLines {
+			if isMul {
+				mul := int64(1)
+				for _, val := range values {
+					mul *= val
+				}
+				result += mul
+				isMul = false
+			}
+			if isAdd {
+				add := int64(0)
+				for _, val := range values {
+					add += val
+				}
+				result += add
+				isAdd = false
+			}
+			values = []int64{}
+			continue
+		}
+		reversed := utils.StringReverse(string(colVal))
+		val, _ := strconv.ParseInt(reversed, 10, 64)
+		values = append(values, val)
+	}
+	if isMul {
+		mul := int64(1)
+		for _, val := range values {
+			mul *= val
+		}
+		result += mul
+		isMul = false
+	}
+	if isAdd {
+		add := int64(0)
+		for _, val := range values {
+			add += val
+		}
+		result += add
+		isAdd = false
+	}
+	values = []int64{}
+	return result
 }
