@@ -48,30 +48,42 @@ func IsIn(needle interface{}, haystack interface{}) bool {
 	return false
 }
 
-func Min(a, b int) int {
+func Min[T int | int64 | float64](a, b T) T {
 	if a < b {
 		return a
 	}
 	return b
 }
 
-func Max(a, b int) int {
+func Max[T int | int64 | float64](a, b T) T {
 	if a > b {
 		return a
 	}
 	return b
 }
 
-func Min64(a, b int64) int64 {
-	if a < b {
-		return a
+func MinSlice(slice []int64) int64 {
+	if len(slice) == 0 {
+		panic("minSlice called with empty slice")
 	}
-	return b
+	minVal := slice[0]
+	for _, val := range slice {
+		if val < minVal {
+			minVal = val
+		}
+	}
+	return minVal
 }
 
-func Max64(a, b int64) int64 {
-	if a > b {
-		return a
+func MaxSlice(slice []int64) int64 {
+	if len(slice) == 0 {
+		panic("maxSlice called with empty slice")
 	}
-	return b
+	maxVal := slice[0]
+	for _, val := range slice {
+		if val > maxVal {
+			maxVal = val
+		}
+	}
+	return maxVal
 }

@@ -19,8 +19,8 @@ func insertIntoRanges(newRange [2]int64, ranges [][2]int64) [][2]int64 {
 		i++
 	}
 	for i < len(ranges) && ranges[i][0] <= newRange[1] {
-		newRange[0] = utils.Min64(newRange[0], ranges[i][0])
-		newRange[1] = utils.Max64(newRange[1], ranges[i][1])
+		newRange[0] = utils.Min(newRange[0], ranges[i][0])
+		newRange[1] = utils.Max(newRange[1], ranges[i][1])
 		i++
 	}
 
