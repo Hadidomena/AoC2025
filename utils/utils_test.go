@@ -94,3 +94,53 @@ func TestMinMax(t *testing.T) {
 		t.Fatalf("Expected Max(3.5,5.2) to be 5.2")
 	}
 }
+
+func TestMinSlice(t *testing.T) {
+	slice := []int64{5, 3, 8, 1, 4}
+	if MinSlice(slice) != 1 {
+		t.Fatalf("Expected MinSlice to be 1")
+	}
+
+	emptySlice := []int64{}
+	defer func() {
+		if r := recover(); r == nil {
+			t.Fatalf("Expected panic for empty slice")
+		}
+	}()
+	MinSlice(emptySlice)
+}
+
+func TestMaxSlice(t *testing.T) {
+	slice := []int64{5, 3, 8, 1, 4}
+	if MaxSlice(slice) != 8 {
+		t.Fatalf("Expected MaxSlice to be 8")
+	}
+
+	emptySlice := []int64{}
+	defer func() {
+		if r := recover(); r == nil {
+			t.Fatalf("Expected panic for empty slice")
+		}
+	}()
+	MaxSlice(emptySlice)
+}
+
+func TestStringReverse(t *testing.T) {
+	original := "Hello, World!"
+	reversed := "!dlroW ,olleH"
+	if StringReverse(original) != reversed {
+		t.Fatalf("Expected %s, got %s", reversed, StringReverse(original))
+	}
+
+	original = "A"
+	reversed = "A"
+	if StringReverse(original) != reversed {
+		t.Fatalf("Expected %s, got %s", reversed, StringReverse(original))
+	}
+
+	original = ""
+	reversed = ""
+	if StringReverse(original) != reversed {
+		t.Fatalf("Expected empty string, got %s", StringReverse(original))
+	}
+}
