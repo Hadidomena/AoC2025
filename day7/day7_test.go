@@ -2,6 +2,7 @@ package day7
 
 import (
 	"AoC2025/utils"
+	"math/big"
 	"testing"
 )
 
@@ -22,9 +23,9 @@ func TestSecondPart(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Failed to load example file: %v", err)
 	}
-	expected := int64(0)
+	expected := big.NewInt(40)
 	result := SolveSecondPart(lines)
-	if result != expected {
+	if result.Cmp(expected) != 0 {
 		t.Errorf("SolveSecondPart() = %v; want %v", result, expected)
 	}
 }

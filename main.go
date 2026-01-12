@@ -10,12 +10,13 @@ import (
 	"AoC2025/day7"
 	"AoC2025/utils"
 	"fmt"
+	"math/big"
 	"os"
 )
 
 type daySolver struct {
 	solveFirstPart  func([]string) int64
-	solveSecondPart func([]string) int64
+	solveSecondPart interface{}
 }
 
 var solvers = map[string]daySolver{
@@ -80,9 +81,15 @@ func solveDay(day string) {
 	}
 
 	result1 := solver.solveFirstPart(lines)
-	result2 := solver.solveSecondPart(lines)
+	var result2 interface{}
+	switch f := solver.solveSecondPart.(type) {
+	case func([]string) int64:
+		result2 = f(lines)
+	case func([]string) *big.Int:
+		result2 = f(lines)
+	}
 
-	fmt.Printf("Result for first part is %d and result for second part is %d\n", result1, result2)
+	fmt.Printf("Result for first part is %d and result for second part is %v\n", result1, result2)
 }
 
 func main() {

@@ -2,6 +2,7 @@ package day7
 
 import (
 	"AoC2025/utils"
+	"math/big"
 )
 
 func SolveFirstPart(lines []string) int64 {
@@ -33,6 +34,44 @@ func SolveFirstPart(lines []string) int64 {
 	return result
 }
 
-func SolveSecondPart(lines []string) int64 {
-	return 0
+func SolveSecondPart(lines []string) *big.Int {
+	beams := make(map[int]*big.Int)
+	for i, line := range lines {
+		if i == 0 {
+			for j, char := range line {
+				if char == 'S' {
+					beams[j] = big.NewInt(1)
+				}
+			}
+		} else {
+			newBeams := make(map[int]*big.Int)
+			for k, v := range beams {
+				if line[k] == '^' {
+					if k-1 >= 0 {
+						if newBeams[k-1] == nil {
+							newBeams[k-1] = new(big.Int)
+						}
+						newBeams[k-1].Add(newBeams[k-1], v)
+					}
+					if k+1 < len(line) {
+						if newBeams[k+1] == nil {
+							newBeams[k+1] = new(big.Int)
+						}
+						newBeams[k+1].Add(newBeams[k+1], v)
+					}
+				} else {
+					if newBeams[k] == nil {
+						newBeams[k] = new(big.Int)
+					}
+					newBeams[k].Add(newBeams[k], v)
+				}
+			}
+			beams = newBeams
+		}
+	}
+	result := new(big.Int)
+	for _, v := range beams {
+		result.Add(result, v)
+	}
+	return result
 }
