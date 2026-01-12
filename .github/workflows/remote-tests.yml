@@ -23,6 +23,8 @@ jobs:
           - ./day6
           - ./utils
           - ./day7
+          - ./day8
+          - ./day9
     
     steps:
       - name: Checkout code
