@@ -7,12 +7,13 @@ import (
 )
 
 // Takes in path to the file, returns all of the lines loaded from it as an []string.
+// handles both Unix and Windows line endings.
 func LoadFileAsLines(filename string) ([]string, error) {
 	fileContent, err := os.ReadFile(filename)
 	if err != nil {
 		panic(err)
 	}
-	return strings.Split(string(fileContent), "\n"), nil
+	return strings.Split(strings.ReplaceAll(string(fileContent), "\r\n", "\n"), "\n"), nil
 }
 
 // Returns absolute value of integer.
