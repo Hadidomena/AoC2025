@@ -115,6 +115,40 @@ func SolvePart1(lines []string, connectionsToMake int) int {
 	return sizes[0] * sizes[1] * sizes[2]
 }
 
-func SolveSecondPart(lines []string) int64 {
-	return 0
+func SolvePart2(lines []string) int64 {
+	points := parsePoints(lines)
+	numPoints := len(points)
+
+	var edges []Edge
+	for i := 0; i < numPoints; i++ {
+		for j := i + 1; j < numPoints; j++ {
+			dist := distanceSq(points[i], points[j])
+			edges = append(edges, Edge{P1: i, P2: j, DistanceSq: dist})
+		}
+	}
+
+	sort.SliceStable(edges, func(i, j int) bool {
+		return edges[i].DistanceSq < edges[j].DistanceSq
+	})
+
+	var lastConnectedP1, lastConnectedP2 Point
+
+	numCircuits := numPoints
+	dsu := NewDSU(numPoints)
+	i := 0
+	for numCircuits > 1 && i < len(edges) {
+		edge := edges[i]
+		root1 := dsu.Find(edge.P1)
+		root2 := dsu.Find(edge.P2)
+
+		if root1 != root2 {
+			dsu.Union(edge.P1, edge.P2)
+			numCircuits--
+			lastConnectedP1 = points[edge.P1]
+			lastConnectedP2 = points[edge.P2]
+		}
+		i++
+	}
+
+	return int64(lastConnectedP1.X) * int64(lastConnectedP2.X)
 }

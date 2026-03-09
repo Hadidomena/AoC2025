@@ -75,7 +75,9 @@ var solvers = map[string]daySolver{
 		solveFirstPart: func(lines []string) int64 {
 			return int64(day8.SolvePart1(lines, 1000))
 		},
-		solveSecondPart: nil,
+		solveSecondPart: func(lines []string) int64 {
+			return day8.SolvePart2(lines)
+		},
 	},
 	"day9": {
 		solveFirstPart: func(lines []string) int64 {

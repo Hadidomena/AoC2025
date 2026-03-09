@@ -22,8 +22,8 @@ func TestSecondPart(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Failed to load example file: %v", err)
 	}
-	expected := int64(0)
-	result := SolveSecondPart(lines)
+	expected := int64(25272)
+	result := SolvePart2(lines)
 	if result != expected {
 		t.Errorf("SolveSecondPart() = %v; want %v", result, expected)
 	}
