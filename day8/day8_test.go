@@ -5,15 +5,15 @@ import (
 	"testing"
 )
 
-func TestFirstPart(t *testing.T) {
+func TestSolvePart1(t *testing.T) {
 	lines, err := utils.LoadFileAsLines("example.txt")
 	if err != nil {
-		t.Fatalf("Failed to load example file: %v", err)
+		t.Fatalf("could not load example.txt: %v", err)
 	}
-	expected := int64(40)
-	result := SolveFirstPart(lines)
-	if result != expected {
-		t.Errorf("SolveFirstPart() = %v; want %v", result, expected)
+	want := 40
+	got := SolvePart1(lines, 10)
+	if got != want {
+		t.Errorf("SolvePart1() = %v, want %v", got, want)
 	}
 }
 
