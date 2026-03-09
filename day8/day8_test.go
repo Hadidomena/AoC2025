@@ -10,7 +10,7 @@ func TestFirstPart(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Failed to load example file: %v", err)
 	}
-	expected := int64(0)
+	expected := int64(40)
 	result := SolveFirstPart(lines)
 	if result != expected {
 		t.Errorf("SolveFirstPart() = %v; want %v", result, expected)
